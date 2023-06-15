@@ -1,0 +1,126 @@
+.register {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.register__logo {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  object-fit: contain;
+  width: 300px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.register__form {
+  background-color: rgb(81, 224, 193);
+  width: 400px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 3px solid rgb(255, 255, 255);
+  padding: 20px;
+}
+
+.register__form > h1 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.register__form > p {
+    margin-bottom: 20px;
+    font-weight: bold;
+    
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.register__form > form > h5 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-bottom: 5px;
+}
+
+.register__form > form > input {
+  height: 30px;
+  margin-bottom: 10px;
+  background-color: white;
+  width: 98%;
+}
+
+.register__form > form > .password__container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.register__form > form > .password__container > input {
+  height: 30px;
+  margin-bottom: 10px;
+  background-color: white;
+  width: 100%;
+}
+
+.password__toggle {
+  position: absolute;
+  top: 40%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.register__form > p {
+  margin-top: 15px;
+  font-size: 12px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+.register__registerButton {
+  background: rgb(214, 34, 184);
+  height: 50px;
+  width: 100%;
+  border: 3px solid;
+  border-radius: 15px 50px;
+  margin-top: 10px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-color: rgb(145, 10, 235);
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+.register__registerButton:hover {
+  box-shadow: 0 12px 16px 0 rgba(180, 39, 93, 0.363),
+    0 17px 50px 0 rgba(214, 44, 163, 0.781);
+}
+
+.existent__user {
+  margin-top: 30px;
+  border-bottom: 2px solid white;
+}
+
+.register__signInButton {
+  background: rgb(145, 10, 235);
+  height: 50px;
+  width: 100%;
+  border: 3px solid;
+  border-radius: 50px 15px;
+  margin-top: 30px;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-color: rgb(214, 34, 184);
+  cursor: pointer;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+
+.register__signInButton:hover {
+    box-shadow: 0 12px 16px 0 rgba(214, 44, 163, 0.781),
+      0 17px 50px 0 rgba(180, 39, 93, 0.363);
+  }

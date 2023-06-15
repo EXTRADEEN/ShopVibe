@@ -1,0 +1,101 @@
+.header {
+  height: 65px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(90deg, #5170ff, #ff66c4);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header__logo {
+  width: 150px;
+  object-fit: contain;
+  margin: 0 20px;
+  margin-bottom: 5px;
+}
+
+.header__search {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  margin-right: auto;
+  border-radius: 24px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: #fff;
+}
+
+.header__category {
+  padding-left: 1px;
+  display: flex;
+  flex: auto;
+  color: #000;
+  font-weight: bold;
+  margin-right: 5px;
+  width: 100%;
+  white-space: nowrap;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.header__searchInput {
+  height: 15px;
+  padding: 10px;
+  border: none;
+  width: 100%;
+  outline: none;
+}
+
+.header__searchIcon {
+  padding: 7px;
+  height: 22px;
+  background-color: rgb(222, 55, 255);
+  border-radius: 24px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.header__optionLineOne {
+  font-size: 13px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.header__optionLineTwo {
+  font-size: 15px;
+  font-weight: 800;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.header__optionLineTree {
+  font-size: 25px;
+  font-weight: 500;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.header__optionBasket {
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.header__optionBasket svg {
+  font-size: 35px;
+}
+
+.header__basketCount {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.header__nav {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.header__options {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: rgb(255, 255, 255);
+}

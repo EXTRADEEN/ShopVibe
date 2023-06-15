@@ -1,0 +1,23 @@
+.checkout {
+    display: flex;
+    background-color: rgb(230, 227, 227);
+    height: max-content;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.checkout__ad {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.checkout__title {
+    margin-bottom: 0px;
+    padding-left: 100px;
+    border-bottom: 1px solid rgb(32, 173, 178);
+}
+
+.hello__user {
+    padding-left: 50px;
+    margin-bottom: 10px;
+}
+
