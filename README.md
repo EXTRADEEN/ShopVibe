@@ -1,7 +1,7 @@
 # ShopVibe
 
 <p align="center">
-<img src="shopvibe.gif" width="220" height="280">
+<img src="shopvibe.gif" width="800" height="600">
 
 
 ShopVibe is a web application built using React.js and Firebase. It is an e-commerce platform designed to provide a seamless online shopping experience. This README.md file contains information about the project and instructions for installation.
