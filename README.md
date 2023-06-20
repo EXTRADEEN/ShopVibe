@@ -1,4 +1,4 @@
-# ShopVibe
+<h1> Portfolio Project: ShopVibe </h1>
 
 <p align="center">
 <img src="shopvibe.gif" width="800" height="600">
