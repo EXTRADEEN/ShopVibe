@@ -6,11 +6,11 @@ import { Link, useHistory } from "react-router-dom";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import CurrencyFormat from "react-currency-format";
 import { getBasketTotal } from "./reducer";
-import axios from './axios';
+import axios from "./axios";
 
 function Payment() {
   const [{ basket, user }, dispatch] = useStateValue();
-  const history =useHistory();
+  const history = useHistory();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -35,7 +35,7 @@ function Payment() {
     getClientSecret();
   }, [basket]);
 
-  console.log('THE SECRET IS >>>', clientSecret)
+  console.log("THE SECRET IS >>>", clientSecret);
 
   const handleSubmit = async (event) => {
     // do all the fancy stripe stuff
@@ -55,7 +55,7 @@ function Payment() {
         setError(null);
         setProcessing(false);
 
-        history.replaceState("/orders");
+        history.replace("/orders");
       });
   };
 
@@ -116,7 +116,11 @@ function Payment() {
 
               <div className="payment__priceContainer">
                 <CurrencyFormat
-                  renderText={(value) => <h3>Order Total: {value}</h3>}
+                  renderText={(value) => (
+                    <h3>
+                      Order Total: <strong>{value}</strong>
+                    </h3>
+                  )}
                   decimalScale={2}
                   value={getBasketTotal(basket)}
                   displayType={"text"}
