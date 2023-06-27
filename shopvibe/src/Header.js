@@ -14,7 +14,7 @@ function Header() {
     if (user) {
       auth.signOut();
     }
-  }
+  };
 
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -60,17 +60,21 @@ function Header() {
       <div className="header__nav">
         <Link to={!user && "/login"}>
           <div onClick={handleAutentification} className="header__options">
-            <span className="header__optionLineOne">Hello, {user ? user.email : "Guest"}</span>
+            <span className="header__optionLineOne">
+              Hello, {user ? user.email : "Guest"}
+            </span>
             <span className="header__optionLineTwo">
               {user ? "Sign Out" : "Sign In"}
             </span>
           </div>
         </Link>
 
-        <div className="header__options">
-          <span className="header__optionLineOne">Returns</span>
-          <span className="header__optionLineTwo">& Orders</span>
-        </div>
+        <Link to="/orders">
+          <div className="header__options">
+            <span className="header__optionLineOne">Returns</span>
+            <span className="header__optionLineTwo">& Orders</span>
+          </div>
+        </Link>
 
         <Link to="/Checkout">
           <div className="header__optionBasket">

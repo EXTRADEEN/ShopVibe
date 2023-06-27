@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-    // THE API (cloud function) URL
-    baseURL: "http://127.0.0.1:5001/shopvibe-5b646/us-central1/api" 
-})
+  // THE API (cloud function) URL
+  baseURL: "http://localhost:5001/shopvibe-5b646/us-central1/api",
+});
 
 export default instance;
