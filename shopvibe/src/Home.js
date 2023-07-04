@@ -12,7 +12,7 @@ function Home() {
           <Product
             id="1"
             title="Fitbit"
-            price={19.99}
+            price={59.99}
             image="/home_img/fitbit.png"
             rating={3}
           />

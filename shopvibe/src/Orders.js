@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { getFirestore, collection } from "firebase/firestore";
 import { db } from "./firebase";
 import "./Orders.css";
 import { useStateValue } from "./StateProvider";
@@ -15,7 +16,7 @@ function Orders() {
         .doc(user?.uid)
         .collection("orders")
         .orderBy("created", "desc")
-        .onSbapshot((snapshot) =>
+        .onSnapshot((snapshot) =>
           setOrders(
             snapshot.docs.map((doc) => ({
               id: doc.id,
