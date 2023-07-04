@@ -1,32 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { getFirestore, collection } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { getFirestore, collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 import "./Orders.css";
 import { useStateValue } from "./StateProvider";
 import Order from "./Order";
 
 function Orders() {
-  const [{ basket, user }, dispatch] = useStateValue();
+  const [{ user }] = useStateValue();
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    if (user) {
-      db
-        .collection("users")
-        .doc(user?.uid)
-        .collection("orders")
-        .orderBy("created", "desc")
-        .onSnapshot((snapshot) =>
-          setOrders(
-            snapshot.docs.map((doc) => ({
-              id: doc.id,
-              data: doc.data(),
-            }))
-          )
-        );
-    } else {
-      setOrders([]);
-    }
+    const fetchOrders = async () => {
+      if (user) {
+        const ordersRef = collection(db, `users/${user?.uid}/orders`);
+        const q = query(ordersRef);
+        const querySnapshot = await getDocs(q);
+        const ordersData = [];
+        querySnapshot.forEach((doc) => {
+          ordersData.push({
+            id: doc.id,
+            data: doc.data(),
+          });
+        });
+        setOrders(ordersData);
+      } else {
+        setOrders([]);
+      }
+    };
+
+    fetchOrders();
   }, [user]);
 
   return (
@@ -34,9 +36,11 @@ function Orders() {
       <h1>Your Orders</h1>
 
       <div className="orders__order">
-        {orders?.map(order => (
-            <Order order={order} />
-        ))}
+        {orders.length > 0 ? (
+          orders.map((order) => <Order key={order.id} order={order} />)
+        ) : (
+          <p>No orders yet</p>
+        )}
       </div>
     </div>
   );
