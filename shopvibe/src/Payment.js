@@ -8,7 +8,7 @@ import CurrencyFormat from "react-currency-format";
 import { getBasketTotal } from "./reducer";
 import axios from "./axios";
 import { db } from "./firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, getDoc, onSnapshot, query, where } from "firebase/firestore";
 
 function Payment() {
   const [{ basket, user }, dispatch] = useStateValue();
@@ -16,6 +16,8 @@ function Payment() {
 
   const stripe = useStripe();
   const elements = useElements();
+
+  const [userDetails, setUserDetails] = useState(null);
 
   const [succeeded, setSucceeded] = useState(false);
   const [processing, setProcessing] = useState("");
@@ -35,7 +37,20 @@ function Payment() {
     getClientSecret();
   }, [basket]);
 
-  console.log("THE SECRET IS >>>", clientSecret);
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      if (user) {
+        const q = query(collection(db, "users"), where("email", "==", user.email));
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+          snapshot.forEach((doc) => {
+            setUserDetails(doc.data());
+          });
+        });
+      }
+    };
+
+    fetchUserDetails();
+  }, [user]);
 
   const handleSubmit = async (event) => {
     // Do all the fancy Stripe stuff
@@ -89,9 +104,13 @@ function Payment() {
             <h3>Shipping Address</h3>
           </div>
           <div className="payment__address">
-            <p>{user?.email}</p>
-            <p>123 React Lane</p>
-            <p>Los Angeles, CA</p>
+            <p>{userDetails?.name}</p>
+            <p>{userDetails?.email}</p>
+            <p>{userDetails?.phone}</p>
+            <p>{userDetails?.address}</p>
+            <p>
+              {userDetails?.city}, {userDetails?.country}
+            </p>
           </div>
         </div>
 
@@ -126,7 +145,11 @@ function Payment() {
 
               <div className="payment__priceContainer">
                 <CurrencyFormat
-                  renderText={(value) => <h3>Order Total: <strong>{value}</strong></h3>}
+                  renderText={(value) => (
+                    <h3>
+                      Order Total: <strong>{value}</strong>
+                    </h3>
+                  )}
                   decimalScale={2}
                   value={getBasketTotal(basket)}
                   displayType={"text"}
