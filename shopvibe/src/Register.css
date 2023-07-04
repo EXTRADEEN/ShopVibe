@@ -31,10 +31,9 @@
 }
 
 .register__form > p {
-    margin-bottom: 20px;
-    font-weight: bold;
-    
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-bottom: 20px;
+  font-weight: bold;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .register__form > form > h5 {
@@ -121,6 +120,36 @@
 }
 
 .register__signInButton:hover {
-    box-shadow: 0 12px 16px 0 rgba(214, 44, 163, 0.781),
-      0 17px 50px 0 rgba(180, 39, 93, 0.363);
-  }
+  box-shadow: 0 12px 16px 0 rgba(214, 44, 163, 0.781),
+    0 17px 50px 0 rgba(180, 39, 93, 0.363);
+}
+
+.register__form > form > .address__container {
+  display: flex;
+  align-items: center;
+}
+
+.register__form > form > .address__container > input {
+  height: 30px;
+  margin-bottom: 10px;
+  background-color: white;
+  width: 100%;
+}
+
+.register__form > form > .address__container > input:nth-child(2) {
+  margin-left: 5px;
+  width: 65%;
+}
+
+.register__form > form > .address__container > input:nth-child(3) {
+  width: 35%;
+}
+
+.register__form > form > .address__container > input:nth-child(4) {
+  margin-top: 10px;
+}
+
+.register__form > form > .address__container > input:nth-child(5) {
+  margin-top: 10px;
+  width: 100%;
+}

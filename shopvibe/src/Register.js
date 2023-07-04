@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./Register.css";
 import { Link, useHistory } from "react-router-dom";
-import { auth } from "./firebase.js";
+import { auth, db } from "./firebase.js";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { collection, addDoc } from "firebase/firestore";
 
 function Register() {
   const history = useHistory();
@@ -11,20 +12,42 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [country, setCountry] = useState("");
+  const [phone, setPhone] = useState("");
+  const [city, setCity] = useState("");
 
   const register = (e) => {
     e.preventDefault();
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        console.log(userCredential);
-        if (auth) {
-          history.push("Login");
-        }
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+    if (name && email && password && address && country && phone && city) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log(userCredential);
+
+          addDoc(collection(db, "users"), {
+            name: name,
+            email: email,
+            phone: phone,
+            address: address,
+            country: country,
+            city: city,
+          })
+            .then(() => {
+              console.log("Document successfully written!");
+              history.push("/login");
+            })
+            .catch((error) => {
+              console.error("Error writing document: ", error);
+            });
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    } else {
+      alert("Please fill in all fields");
+    }
   };
 
   return (
@@ -34,12 +57,12 @@ function Register() {
       </Link>
 
       <div className="register__form">
-        <h1>New customer ?</h1>
+        <h1>New customer?</h1>
 
-        <p>Enter an email address and password.</p>
+        <p>Please fill in the fields below to register.</p>
 
         <form>
-          <h5>Name</h5>
+          <h5>Full Name</h5>
           <input
             type="text"
             value={name}
@@ -51,6 +74,34 @@ function Register() {
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+          />
+
+          <h5>Phone Number</h5>
+          <input
+            type="text"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+
+          <h5>Address</h5>
+          <input
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+
+          <h5>Country</h5>
+          <input
+            type="text"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+          />
+
+          <h5>City</h5>
+          <input
+            type="text"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
           />
 
           <h5>Password</h5>
@@ -76,7 +127,7 @@ function Register() {
             Create your ShopVibe account
           </button>
 
-          <h1 className="existent__user">Already a customer ?</h1>
+          <h1 className="existent__user">Already a customer?</h1>
 
           <Link to="/Login">
             <button className="register__signInButton">Sign In</button>

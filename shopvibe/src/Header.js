@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import Select from "react-select";
 import { Link } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
+import { onSnapshot, collection } from "firebase/firestore";
 
 function Header() {
   const [{ basket, user }, dispatch] = useStateValue();
@@ -36,6 +37,23 @@ function Header() {
     setSelectedOption(selectedOption);
   };
 
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "users"), (snapshot) => {
+      snapshot.forEach((doc) => {
+        if (user && doc.data().email === user.email) {
+          dispatch({
+            type: "SET_USER",
+            user: { ...user, displayName: doc.data().name },
+          });
+        }
+      });
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [user, dispatch]);
+
   return (
     <div className="header">
       <Link to="/">
@@ -61,7 +79,7 @@ function Header() {
         <Link to={!user && "/login"}>
           <div onClick={handleAutentification} className="header__options">
             <span className="header__optionLineOne">
-              Hello, {user ? user.email : "Guest"}
+              Hello, {user ? user.displayName || user.email : "Guest"}
             </span>
             <span className="header__optionLineTwo">
               {user ? "Sign Out" : "Sign In"}
@@ -89,4 +107,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default Header
