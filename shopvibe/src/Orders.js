@@ -22,6 +22,9 @@ function Orders() {
             data: doc.data(),
           });
         });
+
+        ordersData.sort((a, b) => b.data.created - a.data.created);
+        
         setOrders(ordersData);
       } else {
         setOrders([]);

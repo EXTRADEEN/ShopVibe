@@ -1,7 +1,7 @@
 .summary {
   margin-top: 22px;
   text-align: center;
-  margin-left: 180px;
+  margin-left: 10px;
   font-size:xx-large;
   font-weight:bold;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -9,7 +9,7 @@
 
 .subtotal {
   margin-top: 20px;
-  margin-left: 150px;
+  margin-left: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

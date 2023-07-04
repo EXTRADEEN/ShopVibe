@@ -126,7 +126,7 @@ function Payment() {
 
               <div className="payment__priceContainer">
                 <CurrencyFormat
-                  renderText={(value) => <h3>Order Total: {value}</h3>}
+                  renderText={(value) => <h3>Order Total: <strong>{value}</strong></h3>}
                   decimalScale={2}
                   value={getBasketTotal(basket)}
                   displayType={"text"}

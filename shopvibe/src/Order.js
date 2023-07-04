@@ -10,10 +10,11 @@ function Order({ order }) {
       <h2>Order</h2>
       <p>{moment.unix(order.data.created).format("MMMM Do YYYY, h:mma")}</p>
       <p className="order__id">
-        <small>{order.id}"</small>
+        <small><strong>{order.id}</strong></small>
       </p>
       {order.data.basket?.map((item) => (
         <CheckoutProduct
+          key={item.id}
           id={item.id}
           title={item.title}
           image={item.image}
@@ -23,7 +24,9 @@ function Order({ order }) {
         />
       ))}
       <CurrencyFormat
-        renderText={(value) => <h3 className="order__total">Order Total</h3>}
+        renderText={(value) => (
+          <h3 className="order__total">Order Total: <strong>{value}</strong></h3>
+        )}
         decimalScale={2}
         value={order.data.amount / 100}
         displayType={"text"}
