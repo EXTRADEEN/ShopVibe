@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import Select from "react-select";
+import Dropdown from "react-dropdown-select";
 import { Link } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 import { auth, db } from "./firebase";
@@ -11,7 +11,7 @@ import { onSnapshot, collection } from "firebase/firestore";
 function Header() {
   const [{ basket, user }, dispatch] = useStateValue();
 
-  const handleAutentification = () => {
+  const handleAuthentication = () => {
     if (user) {
       auth.signOut();
     }
@@ -20,22 +20,30 @@ function Header() {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const options = [
-    { value: "category1", label: "Category 1" },
-    { value: "category2", label: "Category 2" },
-    { value: "category3", label: "Category 3" },
-    // Adaugă mai multe categorii după nevoie
+    { value: "electronics", label: "Electronics" },
+    { value: "sports", label: "Sports and Outdoors" },
+    { value: "tools", label: "Tools & Home Improvement" },
   ];
 
-  const customStyles = {
-    control: (provided) => ({
-      ...provided,
-      paddingLeft: 0,
-    }),
-  };
-
-  const handleCategoryChange = (selectedOption) => {
+  const handleCategoryChange = useCallback((selectedOption) => {
     setSelectedOption(selectedOption);
-  };
+    if (selectedOption) {
+      const category = selectedOption[0].value;
+      let categoryUrl = "";
+
+      if (category === "electronics") {
+        categoryUrl = "/electronics";
+      } else if (category === "sports") {
+        categoryUrl = "/sports";
+      } else if (category === "tools") {
+        categoryUrl = "/tools";
+      }
+
+      if (categoryUrl !== "") {
+        window.location.href = categoryUrl;
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "users"), (snapshot) => {
@@ -60,24 +68,21 @@ function Header() {
         <img className="header__logo" src="/logo1.png" alt="Logo1" />
       </Link>
       <div className="header__search">
-        <div className="header__category">
-          <Select
-            value={selectedOption}
-            options={options}
-            placeholder="All Categories"
-            isSearchable={false}
-            menuPlacement="auto"
-            styles={customStyles}
-            onChange={handleCategoryChange}
-          />
-        </div>
+        <Dropdown className="header__category "
+          value={selectedOption}
+          options={options}
+          placeholder="All Categories"
+          searchable={false}
+          direction="left"
+          onChange={handleCategoryChange}
+        />
         <input className="header__searchInput" type="text" />
         <SearchIcon className="header__searchIcon" />
       </div>
 
       <div className="header__nav">
         <Link to={!user && "/login"}>
-          <div onClick={handleAutentification} className="header__options">
+          <div onClick={handleAuthentication} className="header__options">
             <span className="header__optionLineOne">
               Hello, {user ? user.displayName || user.email : "Guest"}
             </span>
@@ -94,7 +99,7 @@ function Header() {
           </div>
         </Link>
 
-        <Link to="/Checkout">
+        <Link to="/checkout">
           <div className="header__optionBasket">
             <ShoppingBasketIcon />
             <span className="header__optionLineTree header__basketCount">
@@ -107,4 +112,4 @@ function Header() {
   );
 }
 
-export default Header
+export default Header;

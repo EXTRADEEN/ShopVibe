@@ -12,6 +12,10 @@ import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import Electronics from "./Electronics";
+import Sports from "./Sports";
+import Tools from "./Tools";
+import SearchPage from "./SearchPage";
 
 const promise = loadStripe(
   "pk_test_51NLqcuAKzWxq1E71MRlzQez8OzgqLb3GPGvKqQEsJgjFBld2peisA0B7a0M9vVpLbj2hRNYMCcIZ7bYXWemqhAJ300ZdbO7xcs"
@@ -71,6 +75,22 @@ function App() {
           <Route path="/">
             <Header />
             <Home />
+          </Route>
+          <Route path="/electronics">
+            <Header />
+            <Electronics />
+          </Route>
+          <Route path="/sports">
+            <Header />
+            <Sports />
+          </Route>
+          <Route path="/tools">
+            <Header />
+            <Tools />
+          </Route>
+          <Route path="/search" component={SearchPage}>
+            <Header />
+            <SearchPage />
           </Route>
         </Switch>
       </div>

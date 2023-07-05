@@ -30,13 +30,11 @@
 .header__category {
   padding-left: 1px;
   display: flex;
-  flex: auto;
   color: #000;
-  font-weight: bold;
   margin-right: 5px;
-  width: 100%;
-  white-space: nowrap;
+  white-space:break-spaces;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-size: small;
 }
 
 .header__searchInput {
