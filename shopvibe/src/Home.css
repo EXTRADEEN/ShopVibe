@@ -6,6 +6,13 @@
   max-width: 1600px;
 }
 
+.home__section > h2 {
+  margin-left: 15px;
+  margin-top: 15px;
+  font-weight: bolder;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
 .home__row {
   display: flex;
   z-index: 1;
@@ -15,6 +22,5 @@
 
 .slide__image {
   width: 100%;
-  z-index: -1;
-  margin-bottom: -100px;
+  margin-bottom: 30px;
 }

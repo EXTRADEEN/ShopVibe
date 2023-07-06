@@ -1,0 +1,48 @@
+.footer {
+  background: linear-gradient(90deg, #5170ff, #ff66c4);
+  padding: 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  border-top: solid 7px rgb(32, 173, 178);;
+}
+
+.footer__left {
+  flex: 1;
+  margin-left: 30px;
+}
+
+.footer__center {
+  flex: 1;
+  text-align: center;
+  margin-right: -120px;
+}
+
+.footer__right {
+  flex: 1;
+ margin-left: 270px;
+}
+
+.footer__text {
+  margin: 0;
+}
+
+.footer__contact-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.footer__contact-item {
+  margin-bottom: 8px;
+}
+
+.footer__contact-item a {
+  text-decoration: none;
+  color: #0400ff;
+}
+
+.footer__contact-list a:hover {
+  color: #ff0000;
+}

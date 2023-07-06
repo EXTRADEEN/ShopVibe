@@ -30,9 +30,10 @@
 .header__category {
   padding-left: 1px;
   display: flex;
+  flex-direction: row;
   color: #000;
   margin-right: 5px;
-  white-space:break-spaces;
+  
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   font-size: small;
 }

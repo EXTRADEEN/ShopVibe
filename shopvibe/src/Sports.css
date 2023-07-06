@@ -5,6 +5,14 @@
     margin-right: auto;
     max-width: 1600px;
   }
+
+  .sports__container > h1 {
+    margin-left: 15px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-weight: bolder;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
   
   .sports__container {
     margin-left: 5px;

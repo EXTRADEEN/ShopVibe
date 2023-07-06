@@ -8,14 +8,15 @@ import Login from "./Login";
 import Payment from "./Payment";
 import Orders from "./Orders";
 import Register from "./Register";
+import Electronics from "./Electronics";
+import Sports from "./Sports";
+import Tools from "./Tools";
+import Footer from "./Footer";
+import SearchPage from "./SearchPage";
 import { auth } from "./firebase";
 import { useStateValue } from "./StateProvider";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import Electronics from "./Electronics";
-import Sports from "./Sports";
-import Tools from "./Tools";
-import SearchPage from "./SearchPage";
 
 const promise = loadStripe(
   "pk_test_51NLqcuAKzWxq1E71MRlzQez8OzgqLb3GPGvKqQEsJgjFBld2peisA0B7a0M9vVpLbj2hRNYMCcIZ7bYXWemqhAJ300ZdbO7xcs"
@@ -52,9 +53,30 @@ function App() {
     <Router>
       <div className="app">
         <Switch>
+          <Route path="/search">
+            <Header />
+            <SearchPage />
+            <Footer />
+          </Route>
+          <Route path="/electronics">
+            <Header />
+            <Electronics />
+            <Footer />
+          </Route>
+          <Route path="/sports">
+            <Header />
+            <Sports />
+            <Footer />
+          </Route>
+          <Route path="/tools">
+            <Header />
+            <Tools />
+            <Footer />
+          </Route>
           <Route path="/orders">
             <Header />
             <Orders />
+            <Footer />
           </Route>
           <Route path="/login">
             <Login />
@@ -65,32 +87,19 @@ function App() {
           <Route path="/checkout">
             <Header />
             <Checkout />
+            <Footer />
           </Route>
           <Route path="/payment">
             <Header />
             <Elements stripe={promise}>
               <Payment />
             </Elements>
+            <Footer />
           </Route>
           <Route path="/">
             <Header />
             <Home />
-          </Route>
-          <Route path="/electronics">
-            <Header />
-            <Electronics />
-          </Route>
-          <Route path="/sports">
-            <Header />
-            <Sports />
-          </Route>
-          <Route path="/tools">
-            <Header />
-            <Tools />
-          </Route>
-          <Route path="/search" component={SearchPage}>
-            <Header />
-            <SearchPage />
+            <Footer />
           </Route>
         </Switch>
       </div>

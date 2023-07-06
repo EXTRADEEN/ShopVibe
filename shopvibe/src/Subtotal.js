@@ -7,7 +7,7 @@ import { useHistory } from "react-router-dom";
 
 function Subtotal() {
   const history = useHistory();
-  const [{ basket }, dispatch] = useStateValue();
+  const [{ basket }] = useStateValue();
 
   return (
     <div>
@@ -21,11 +21,9 @@ function Subtotal() {
           </div>
           <div className="subtotal__value">
             <CurrencyFormat
-              renderText={(value) => (
-                <strong>{value}</strong>
-              )}
+              renderText={(value) => <strong>{value}</strong>}
               decimalScale={2}
-              value={getBasketTotal(basket)}
+              value={getBasketTotal(basket).toFixed(2)}
               displayType={"text"}
               thousandSeparator={true}
               prefix={"€ "}
@@ -33,7 +31,9 @@ function Subtotal() {
           </div>
         </div>
 
-        <button onClick={e => history.push('/payment')}>Proceed to Checkout</button>
+        <button onClick={() => history.push("/payment")}>
+          Proceed to Checkout
+        </button>
       </div>
     </div>
   );

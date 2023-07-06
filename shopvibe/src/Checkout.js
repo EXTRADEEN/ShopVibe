@@ -3,38 +3,36 @@ import "./Checkout.css";
 import Subtotal from "./Subtotal";
 import CheckoutProduct from "./CheckoutProduct";
 import { useStateValue } from "./StateProvider";
-import { db } from "./firebase";
-import { onSnapshot, collection } from "firebase/firestore";
 
 function Checkout() {
   const [{ basket, user }, dispatch] = useStateValue();
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, "users"), (snapshot) => {
-      snapshot.forEach((doc) => {
-        if (user && doc.data().email === user.email) {
-          dispatch({
-            type: "SET_USER",
-            user: { ...user, displayName: doc.data().name },
-          });
-        }
+    const storedBasket = sessionStorage.getItem("basket");
+    if (storedBasket) {
+      dispatch({
+        type: "SET_BASKET",
+        basket: JSON.parse(storedBasket),
       });
-    });
+    }
+  }, [dispatch]);
 
-    return () => {
-      unsubscribe();
-    };
-  }, [user, dispatch]);
+  useEffect(() => {
+    sessionStorage.setItem("basket", JSON.stringify(basket));
+  }, [basket]);
 
   return (
     <div className="checkout">
       <div className="checkout__left">
         <img className="checkout__ad" src="/cart_img/oculus.jpg" alt="" />
         <div>
-          <h3 className="hello__user">Hello, {user ? user.displayName || user.email : "Guest"}</h3>
-          <h2 className="checkout__title">Your shoping Cart Details</h2>
+          <h3 className="hello__user">
+            Hello, {user ? user.displayName || user.email : "Guest"}
+          </h3>
+          <h2 className="checkout__title">Your Shopping Cart Details</h2>
           {basket.map((item) => (
             <CheckoutProduct
+              key={item.id}
               id={item.id}
               title={item.title}
               image={item.image}

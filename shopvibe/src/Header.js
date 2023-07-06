@@ -3,12 +3,13 @@ import "./Header.css";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import Dropdown from "react-dropdown-select";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useStateValue } from "./StateProvider";
 import { auth, db } from "./firebase";
 import { onSnapshot, collection } from "firebase/firestore";
 
 function Header() {
+  const history = useHistory();
   const [{ basket, user }, dispatch] = useStateValue();
 
   const handleAuthentication = () => {
@@ -18,6 +19,7 @@ function Header() {
   };
 
   const [selectedOption, setSelectedOption] = useState(null);
+  const [searchTerm, setSearchTerm] = useState(""); 
 
   const options = [
     { value: "electronics", label: "Electronics" },
@@ -26,8 +28,8 @@ function Header() {
   ];
 
   const handleCategoryChange = useCallback((selectedOption) => {
-    setSelectedOption(selectedOption);
     if (selectedOption) {
+      setSelectedOption(selectedOption);
       const category = selectedOption[0].value;
       let categoryUrl = "";
 
@@ -40,10 +42,17 @@ function Header() {
       }
 
       if (categoryUrl !== "") {
-        window.location.href = categoryUrl;
+        history.push(categoryUrl);
       }
+    } else {
+      setSelectedOption(null);
     }
-  }, []);
+  }, [history]);
+
+  const handleSearch = () => {
+    console.log("Cuvântul căutat:", searchTerm);
+    history.push(`/search?search=${searchTerm}`);
+  };
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "users"), (snapshot) => {
@@ -68,7 +77,8 @@ function Header() {
         <img className="header__logo" src="/logo1.png" alt="Logo1" />
       </Link>
       <div className="header__search">
-        <Dropdown className="header__category "
+        <Dropdown
+          className="header__category "
           value={selectedOption}
           options={options}
           placeholder="All Categories"
@@ -76,8 +86,13 @@ function Header() {
           direction="left"
           onChange={handleCategoryChange}
         />
-        <input className="header__searchInput" type="text" />
-        <SearchIcon className="header__searchIcon" />
+        <input
+          className="header__searchInput"
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)} 
+        />
+        <SearchIcon className="header__searchIcon" onClick={handleSearch} /> 
       </div>
 
       <div className="header__nav">
